@@ -201,7 +201,7 @@ function startWhackAMole() {
     moleContainer.innerHTML = '';
     score = 0;
     moleScore.textContent = 'Score: 0';
-    whackTimer.textContent = `Countdown: --.00s`; // 修改 ID
+    whackTimer.textContent = `Countdown: --.--s`; // 修改 ID
 
     // 创建 9 个地鼠洞
     for (let i = 0; i < 9; i++) {
