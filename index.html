@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estella's Corner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #6a5acd; /* Slate blue */
+            --secondary-color: #ff6b6b; /* Coral pink */
+            --accent-color: #32cd32; /* Lime green */
+            --text-color: #333333;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f0f2f5;
+            transition: background-color 0.5s ease;
+            padding-bottom: 60px;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Layout */
+        header, main, footer {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #9370db);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        header h1:hover {
+            transform: scale(1.02);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Main Content */
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Date and Time Section */
+        .datetime {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #calendar p, #clock p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+            margin: 10px 0;
+        }
+
+        #clock p {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Quote Section */
+        .quote {
+            text-align: center;
+        }
+
+        blockquote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #555;
+            padding: 15px;
+            border-left: 4px solid var(--secondary-color);
+            margin: 20px 0;
+            background-color: rgba(106, 90, 205, 0.05);
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Button Styles */
+        .center-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #5a4cac;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hidden Message */
+        .hidden-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff5733;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mood Tracker */
+        .mood-tracker {
+            text-align: center;
+        }
+
+        .mood-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .mood-icon {
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            color: #aaa;
+        }
+
+        .mood-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .mood-icon.selected {
+            color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        #mood-message {
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 24px;
+        }
+
+        /* Memory Game */
+        .memory-game {
+            text-align: center;
+        }
+
+        .memory-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .memory-card {
+            height: 80px;
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .memory-card.matched {
+            background-color: var(--accent-color);
+            color: white;
+            cursor: default;
+        }
+
+        .game-controls {
+            margin-top: 20px;
+        }
+
+        #game-message {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            main {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .datetime {
+                grid-column: 1 / 3;
+            }
+        }
+
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            .memory-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="title">Welcome to Estella's Corner</h1>
+        <p>Your go-to place for all things related to Estella!</p>
+    </header>
+    
+    <main>
+        <section class="datetime">
+            <h2>Today's Date & Current Time</h2>
+            <div id="calendar"></div>
+            <div id="clock"></div>
+        </section>
+
+        <section class="quote">
+            <h2>Quote of the Day</h2>
+            <blockquote id="quote">
+                "The best way to predict the future is to create it." - Peter Drucker
+            </blockquote>
+            <div class="center-button">
+                <button id="new-quote">Get a New Quote</button>
+            </div>
+        </section>
+        
+        <section class="mood-tracker">
+            <h2>How Are You Feeling Today?</h2>
+            <div class="mood-icons">
+                <i class="fas fa-laugh-beam mood-icon" data-mood="happy" title="Happy"></i>
+                <i class="fas fa-smile mood-icon" data-mood="good" title="Good"></i>
+                <i class="fas fa-meh mood-icon" data-mood="okay" title="Okay"></i>
+                <i class="fas fa-frown mood-icon" data-mood="sad" title="Sad"></i>
+                <i class="fas fa-tired mood-icon" data-mood="tired" title="Tired"></i>
+            </div>
+            <p id="mood-message"></p>
+        </section>
+        
+        <section class="memory-game">
+            <h2>Memory Card Game</h2>
+            <p>Find all matching pairs!</p>
+            <div class="memory-cards" id="memory-cards"></div>
+            <div class="game-controls">
+                <button id="start-game">Start New Game</button>
+            </div>
+            <p id="game-message"></p>
+        </section>
+        
+        <p id="hidden-message" class="hidden-message">🎉 You discovered a hidden message! 🎉</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Estella's Corner</p>
+    </footer>
+
+    <script>
+        // Simple calendar display (for demonstration purposes)
+        const calendarDiv = document.getElementById('calendar');
+        const today = new Date();
+        calendarDiv.innerHTML = `<p>${today.toDateString()}</p>`;
+
+        // Clock display with seconds
+        function updateClock() {
+            const clockDiv = document.getElementById('clock');
+            const now = new Date();
+            clockDiv.innerHTML = `<p>${now.toLocaleTimeString()}</p>`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Quote changer
+        const quotes = [
+            "Life is what happens when you're busy making other plans. - John Lennon",
+            "Do what you can, with what you have, where you are. - Theodore Roosevelt",
+            "Success is not the key to happiness. Happiness is the key to success. - Albert Schweitzer",
+            "Turn your wounds into wisdom. - Oprah Winfrey",
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "It does not matter how slowly you go as long as you do not stop. - Confucius",
+            "Everything you've ever wanted is on the other side of fear. - George Addair"
+        ];
+        
+        document.getElementById('new-quote').addEventListener('click', function() {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').innerHTML = `"${randomQuote}"`;
+        });
+
+        // Easter Egg: Long press title to change background color
+        const title = document.getElementById('title');
+        let pressTimer;
+        
+        title.addEventListener('mousedown', function() {
+            pressTimer = setTimeout(() => {
+                document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+                document.getElementById('hidden-message').style.display = 'block';
+            }, 1000); // 1 second press
+        });
+
+        title.addEventListener('mouseup', function() {
+            clearTimeout(pressTimer);
+        });
+        
+        // Mood Tracker
+        const moodIcons = document.querySelectorAll('.mood-icon');
+        const moodMessages = {
+            'happy': "Wonderful! Your happiness brightens everyone's day!",
+            'good': "That's great! Keep that positive energy flowing!",
+            'okay': "Hanging in there! Remember, every day has something good in it.",
+            'sad': "It's okay to feel down sometimes. Tomorrow is a new day!",
+            'tired': "Take some time to rest and recharge. You deserve it!"
+        };
+        
+        moodIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Remove selected class from all icons
+                moodIcons.forEach(i => i.classList.remove('selected'));
+                
+                // Add selected class to clicked icon
+                this.classList.add('selected');
+                
+                // Display message based on mood
+                const mood = this.getAttribute('data-mood');
+                document.getElementById('mood-message').textContent = moodMessages[mood];
+                
+                // Save mood to localStorage
+                localStorage.setItem('lastMood', mood);
+            });
+        });
+        
+        // Check if there's a saved mood
+        const lastMood = localStorage.getItem('lastMood');
+        if (lastMood) {
+            const savedMoodIcon = document.querySelector(`.mood-icon[data-mood="${lastMood}"]`);
+            if (savedMoodIcon) {
+                savedMoodIcon.classList.add('selected');
+                document.getElementById('mood-message').textContent = moodMessages[lastMood];
+            }
+        }
+        
+        // Memory Card Game
+        const memoryCards = document.getElementById('memory-cards');
+        const startGameBtn = document.getElementById('start-game');
+        const gameMessage = document.getElementById('game-message');
+        
+        // Card symbols (emojis)
+        const cardSymbols = ['🐱', '🐶', '🐼', '🦊', '🐰', '🦁', '🐯', '🐨'];
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        
+        // Initialize game
+        function initGame() {
+            // Reset variables
+            cards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            memoryCards.innerHTML = '';
+            gameMessage.textContent = '';
+            
+            // Create card pairs
+            const cardPairs = [...cardSymbols, ...cardSymbols];
+            
+            // Shuffle cards
+            for (let i = cardPairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cardPairs[i], cardPairs[j]] = [cardPairs[j], cardPairs[i]];
+            }
+            
+            // Create card elements
+            cardPairs.forEach((symbol, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.symbol = symbol;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                memoryCards.appendChild(card);
+                cards.push(card);
+            });
+        }
+        
+        // Flip card
+        function flipCard() {
+            const selectedCard = this;
+            
+            // Ignore if card is already flipped or matched
+            if (selectedCard.classList.contains('flipped') || 
+                selectedCard.classList.contains('matched') ||
+                flippedCards.length >= 2) {
+                return;
+            }
+            
+            // Flip card
+            selectedCard.classList.add('flipped');
+            selectedCard.textContent = selectedCard.dataset.symbol;
+            flippedCards.push(selectedCard);
+            
+            // Check for match if two cards are flipped
+            if (flippedCards.length === 2) {
+                setTimeout(checkForMatch, 500);
+            }
+        }
+        
+        // Check if flipped cards match
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.symbol === card2.dataset.symbol) {
+                // Cards match
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                
+                // Check if all pairs are matched
+                if (matchedPairs === cardSymbols.length) {
+                    gameMessage.textContent = 'Congratulations! You found all matches!';
+                }
+            } else {
+                // Cards don't match, flip back
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            
+            // Reset flipped cards
+            flippedCards = [];
+        }
+        
+        // Start game button
+        startGameBtn.addEventListener('click', initGame);
+        
+        // Initialize game on page load
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+</html>
